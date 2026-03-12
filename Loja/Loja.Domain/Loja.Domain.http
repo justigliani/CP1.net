@@ -1,6 +1,0 @@
-@Loja.Domain_HostAddress = http://localhost:5186
-
-GET {{Loja.Domain_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
