@@ -1,14 +1,24 @@
+using Loja.Domain.Commons;
+
 namespace Loja.Domain.Entities;
 
-public class Estoque
+// N:1 -> Produto
+public class Estoque : EntidadeBase
 {
-    public int IdEstoque { get; set; }
-    
-    public int QuantidadeDisponivel { get; set; }
-    
-    public DateTime DataAtualizacao { get; set; }
-    
-    public int ProdutoId { get; set; }
-    
-    public Produto? Produto { get; set; }
+    public int QuantidadeDisponivel { get; private set; }
+    public DateTime DataAtualizacao { get; private set; }
+    public Produto Produto { get; private set; }
+    public Estoque(int quantidadeDisponivel, Produto produto)
+    {
+        if (quantidadeDisponivel < 0)
+            throw new Exception("Quantidade inválida");
+
+        QuantidadeDisponivel = quantidadeDisponivel;
+        DataAtualizacao = DateTime.Now;
+        Produto = produto;
+    }
+    public override string ToString()
+    {
+        return $"Estoque: {QuantidadeDisponivel} unidade(s)";
+    }
 }
