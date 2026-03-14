@@ -1,5 +1,6 @@
 namespace Loja.Domain.Entities;
 
+// 1:N Cliente ---< Endereco
 public class Cliente
 {
     public int IdCliente { get; set; }
@@ -13,8 +14,16 @@ public class Cliente
     public string? Telefone { get; set; }
     
     public DateTime DataCadastro { get; set; }
-
+    
     public ICollection<Endereco> Enderecos { get; set; } = new List<Endereco>();
     
     public ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
+    
+    //Metodo para adicionar um novo endereço do cliente 
+    public void AdicionarEndereco(Endereco endereco)
+    {
+        Enderecos.Add(endereco);
+    }
+    
+    
 }

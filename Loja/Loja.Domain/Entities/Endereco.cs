@@ -1,5 +1,6 @@
 namespace Loja.Domain.Entities;
 
+// 1:N - Cliente ---< Endereco
 public class Endereco
 {
     public int IdEndereco { get; set; }
@@ -12,7 +13,7 @@ public class Endereco
     
     public string Cep { get; set; } = string.Empty;
 
-    public int ClienteId { get; set; }
+    public int ClienteId { get; set; } 
     
     public Cliente? Cliente { get; set; }
 }
