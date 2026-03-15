@@ -65,7 +65,5 @@ Loja/
 ```
 ## 📄 Diagrama MER
 
-O diagrama MER está disponível em 
-
-O diagrama MER está disponível em [`/docs/mer.png`](./docs/mer.png)
+O diagrama MER está disponível em [`/Loja/mer.png.png`](./Loja/mer.png.png)
 
