@@ -10,7 +10,7 @@ public class Categoria : EntidadeBase
     public Categoria(string nome, Produto produto)
     {
         if (string.IsNullOrWhiteSpace(nome) || nome.Length < 2)
-            throw new Exception("Nome da categoria inválido");
+            throw new Exception("Categoria de produto inválida");
 
         Nome = nome;
         Produto = produto;
