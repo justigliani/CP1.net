@@ -82,10 +82,6 @@ Loja/
 ├── Loja.Domain         — Entidades e regras de negócio
 └── Loja.Infrastructure — DbContext, Mappings, Migrations e Repositórios
 
-## 📄 Diagrama MER
-
-O diagrama MER está disponível em `/Loja/mer.png.png`
-
 ## 📁 Evidências
 
-Os prints do esquema físico gerado estão disponíveis em `/docs`
+Os prints do esquema físico gerado estão disponíveis em `Loja/Loja.Api/docs`
