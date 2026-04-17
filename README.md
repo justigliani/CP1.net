@@ -1,69 +1,91 @@
-# 🛒 Loja — CP1 .NET
+# 🛒 Loja — CP2 .NET
 
 ## 👥 Integrantes do Grupo
 
 | Nome | RM | Sala |
-|---|---|---|
+|------|----|------|
 | Juliana Da Silva Stigliani | 561171 | 2TDSPJ |
 | Leonardo Zerbinatti de Sales | 562992 | 2TDSPJ |
 | Luis Guilherme Borges Silva | 566548 | 2TDSPJ |
 
 ## 🌐 Domínio Do Projeto escolhido
 
-Este projeto foi desenvolvido com base no domínio de uma **loja online (e-commerce)**.  
-O sistema representa o fluxo básico de compras, permitindo o gerenciamento de clientes,
-produtos, pedidos, pagamentos, endereços e estoque.
+Este projeto foi desenvolvido com base no domínio de uma loja online (e-commerce). O sistema representa o fluxo básico de compras, permitindo o gerenciamento de clientes, produtos, pedidos, pagamentos, endereços e estoque.
+
+## 🗄️ SGBD Utilizado
+
+**SQLite** — banco de dados em arquivo, sem necessidade de instalação de servidor.  
+O arquivo `loja.db` é gerado automaticamente na pasta `Loja.Api/` ao rodar as migrations.
+
+## ▶️ Como Rodar o Projeto
+
+### Pré-requisitos
+- .NET 10 SDK
+- Entity Framework Core CLI
+
+### Instalar o EF Core CLI (se necessário)
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+### Restaurar dependências
+```bash
+dotnet restore
+```
+
+### Aplicar as migrations e criar o banco
+```bash
+dotnet ef database update --project Loja.Infrastructure --startup-project Loja.Api
+```
+
+### Rodar a aplicação
+```bash
+dotnet run --project Loja.Api
+```
 
 ## 🧩 Entidades Modeladas
 
 - **Cliente** — representa o comprador.
-  - `id_cliente` (PK), `nome`, `email`, `senha`, `telefone`, `data_cadastro`
-
+  - `IdCliente` (PK), `Nome`, `Email`, `Senha`, `Telefone`, `DataCadastro`
 - **Endereco** — endereços vinculados ao cliente.
-  - `id_endereco` (PK), `rua`, `cidade`, `estado`, `cep`, `clientes_id_cliente` (FK)
-
+  - `IdEndereco` (PK), `Rua`, `Cidade`, `Estado`, `Cep`, `ClienteId` (FK)
 - **Pedido** — solicitação de compra.
-  - `id_pedidos` (PK), `data_pedido`, `status`, `valor_total`, `clientes_id_cliente` (FK), `pagamentos_id_pagamentos` (FK), `pedidos_id_pedidos`
-
+  - `IdPedido` (PK), `DataPedido`, `Status`, `ValorTotal`, `ClienteId` (FK)
 - **ItemPedido** — resolve o N:N entre Pedido e Produto.
-  - `id_itens_pedidos` (PK), `quantidade`, `preco_unitario`, `pedidos_id_pedidos` (FK), `produtos_id_produtos` (FK), `id_categorias` (FK)
-
+  - `IdItemPedido` (PK), `Quantidade`, `PrecoUnitario`, `PedidoId` (FK), `ProdutoId` (FK)
 - **Produto** — itens disponíveis na loja.
-  - `id_produtos` (PK), `nome`, `preco`, `categorias_id_categorias` (FK)
-
+  - `Id` (PK, Guid), `Nome`, `Preco`, `Ativo`
 - **Categoria** — classifica os produtos.
-  - `id_categorias` (PK), `nome`, `produtos_id_produtos`
-
+  - `Id` (PK, Guid), `Nome`, `ProdutoId` (FK)
 - **Estoque** — controla a quantidade disponível de cada produto.
-  - `id_estoque` (PK), `quantidade_disponivel`, `data_atualizacao`, `produtos_id_produtos` (FK), `id_categorias` (FK)
-
+  - `Id` (PK, Guid), `QuantidadeDisponivel`, `DataAtualizacao`, `ProdutoId` (FK)
 - **Pagamento** — informações do pagamento do pedido.
-  - `id_pagamentos` (PK), `metodo_pagamento`, `status`, `data_pagamento`, `pedidos_id_pedidos` (FK)
+  - `IdPagamento` (PK), `MetodoPagamento`, `Status`, `DataPagamento`, `PedidoId` (FK)
 
 ## 🔗 Relacionamentos
 
 | Relacionamento | Cardinalidade | Descrição |
-|---|---|---|
+|----------------|---------------|-----------|
 | Cliente → Endereco | 1:N | Um cliente pode ter vários endereços |
 | Cliente → Pedido | 1:N | Um cliente pode realizar vários pedidos |
 | Pedido → Pagamento | 1:1 | Todo pedido possui um único pagamento |
 | Pedido → ItemPedido | 1:N | Um pedido contém vários itens |
 | Produto → ItemPedido | 1:N | Um produto pode aparecer em vários itens |
 | Produto ↔ Pedido | N:N | Resolvido pela entidade ItemPedido |
-| Categoria → Produto | 1:N | Uma categoria agrupa vários produtos |
+| Categoria → Produto | N:1 | Uma categoria pertence a um produto |
 | Produto → Estoque | 1:N | Um produto pode ter vários registros de estoque |
 
 ## 🗂️ Estrutura do Projeto
-
-O projeto segue a arquitetura **Clean Architecture**:
-```
 Loja/
 ├── Loja.Api            — Web API .NET 10
-├── Loja.Application    — Camada de aplicação
+├── Loja.Application    — Camada de aplicação (interfaces de repositório)
 ├── Loja.Domain         — Entidades e regras de negócio
-└── Loja.Infrastructure — Infraestrutura
-```
+└── Loja.Infrastructure — DbContext, Mappings, Migrations e Repositórios
+
 ## 📄 Diagrama MER
 
-O diagrama MER está disponível em [`/Loja/mer.png.png`](./Loja/mer.png.png)
+O diagrama MER está disponível em `/Loja/mer.png.png`
 
+## 📁 Evidências
+
+Os prints do esquema físico gerado estão disponíveis em `/docs`
