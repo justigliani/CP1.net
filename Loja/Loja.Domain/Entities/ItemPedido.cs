@@ -11,19 +11,21 @@ public class ItemPedido
 
     // FKs
     public int PedidoId { get; set; }
-    public int ProdutoId { get; set; }
+    public Guid ProdutoId { get; set; }
 
     // Navegação
     public Pedido? Pedido { get; set; }
     public Produto? Produto { get; set; }
 
-    public ItemPedido(int pedidoId, int produtoId, int quantidade, decimal precoUnitario)
+    protected ItemPedido() { }
+
+    public ItemPedido(int pedidoId, Guid produtoId, int quantidade, decimal precoUnitario)
     {
         if (pedidoId <= 0)
             throw new Exception("PedidoId inválido");
         PedidoId = pedidoId;
 
-        if (produtoId <= 0)
+        if (produtoId == Guid.Empty)
             throw new Exception("ProdutoId inválido");
         ProdutoId = produtoId;
 
