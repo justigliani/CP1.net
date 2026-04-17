@@ -84,4 +84,4 @@ Loja/
 
 ## 📁 Evidências
 
-Os prints do esquema físico gerado estão disponíveis em `Loja/Loja.Api/docs`
+Os prints do esquema físico gerado estão disponíveis em `[Loja/Loja.Api/docs](https://github.com/justigliani/CP1.net/tree/a4e1f0e71f979e8bc8078429cac66cb73294aa67/Loja/Loja.Api/docs)`
